@@ -10,6 +10,7 @@ execSync(`${adb} shell svc wifi disable`);
 
 const sleep = async (duration) => new Promise((r) => setTimeout(r, duration));
 const loop = async (cnt) => {
+  if (cnt > 2) return;
   execSync(`${adb} shell svc data disable`);
   execSync(`${adb} shell svc data enable`);
 
@@ -24,9 +25,8 @@ const loop = async (cnt) => {
     const duration = await page
       .metrics()
       .then((met) => met.Timestamp / 1000)
-      .then((t) => 15000 - t)
+      .then((t) => 12000 - t)
       .then((t) => (t <= 0 ? 500 : t));
-    console.log(duration);
 
     await page.evaluate(() => window.scrollBy(0, document.body.scrollHeight));
     await sleep(duration);
@@ -38,7 +38,7 @@ const loop = async (cnt) => {
     await browser.close();
   }
 
-  // return loop(cnt);
+  return loop(cnt);
 };
 
 (async () => await loop(0))();
