@@ -10,7 +10,7 @@ execSync(`${adb} shell svc wifi disable`);
 
 const sleep = async (duration) => new Promise((r) => setTimeout(r, duration));
 const loop = async (cnt) => {
-  if (cnt > 5) return;
+  if (cnt > 2) return;
   execSync(`${adb} shell svc data disable`);
   execSync(`${adb} shell svc data enable`);
 
@@ -27,11 +27,10 @@ const loop = async (cnt) => {
       .then((met) => met.Timestamp / 1000)
       .then((t) => 10000 - t)
       .then((t) => (t <= 0 ? 500 : t));
+    console.log(`${++cnt}, {duration}`)
 
     await page.evaluate(() => window.scrollBy(0, document.body.scrollHeight));
     await sleep(duration);
-
-    console.log(++cnt);
   } catch {
     // await sleep(3000);
   } finally {
