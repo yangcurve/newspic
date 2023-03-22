@@ -27,10 +27,11 @@ const loop = async (cnt) => {
       .then((met) => met.Timestamp / 1000)
       .then((t) => 10000 - t)
       .then((t) => (t <= 0 ? 500 : t));
-    console.log(`${++cnt}, ${duration}`)
 
     await page.evaluate(() => window.scrollBy(0, document.body.scrollHeight));
     await sleep(duration);
+
+    console.log(++cnt)
   } catch {
     // await sleep(3000);
   } finally {
