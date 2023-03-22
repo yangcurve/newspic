@@ -1,15 +1,19 @@
 const puppeteer = require('puppeteer');
-const { execSync } = require('node:child_process');
+const { execSync } = require('child_process');
 const { question } = require('readline-sync');
 
 const operatingSystem = process.argv.at(2) === '32' ? ' (x86)' : '';
 const adb = 'powershell -c ~\\newspic\\platform-tools\\adb.exe';
-const url = question('url: ');
 
+execSync(`${adb} shell svc usb setFunctions rndis`);
 execSync(`${adb} shell svc wifi disable`);
 
-const sleep = async (duration) => new Promise((r) => setTimeout(r, duration));
+const url = question('url: ');
+
+const sleep = (duration) => new Promise((r) => setTimeout(r, duration));
 const loop = async (cnt) => {
+  if (cnt > 2000) return;
+
   execSync(`${adb} shell svc data disable`);
   execSync(`${adb} shell svc data enable`);
 
@@ -24,13 +28,13 @@ const loop = async (cnt) => {
     const duration = await page
       .metrics()
       .then((met) => met.Timestamp / 1000)
-      .then((t) => 8000 - t)
+      .then((t) => 7000 - t)
       .then((t) => (t <= 0 ? 500 : t));
 
     await page.evaluate(() => window.scrollBy(0, document.body.scrollHeight));
     await sleep(duration);
 
-    console.log(++cnt)
+    console.log(cnt++);
   } catch {
     // await sleep(3000);
   } finally {
@@ -40,4 +44,4 @@ const loop = async (cnt) => {
   return loop(cnt);
 };
 
-(async () => await loop(0))();
+loop(1);
