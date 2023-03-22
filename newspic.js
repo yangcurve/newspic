@@ -24,12 +24,12 @@ const loop = async (cnt) => {
     const duration = await page
       .metrics()
       .then((met) => met.Timestamp)
-      .then((t) => 15000 - t)
+      // .then((t) => 15000 - t)
       // .then((t) => (t <= 0 ? 500 : t));
     console.log(duration);
 
-    await page.evaluate(() => window.scrollBy(0, document.body.scrollHeight));
-    await sleep(duration);
+    // await page.evaluate(() => window.scrollBy(0, document.body.scrollHeight));
+    // await sleep(duration);
 
     console.log(++cnt);
   } catch {
@@ -38,7 +38,7 @@ const loop = async (cnt) => {
     await browser.close();
   }
 
-  return loop(cnt);
+  // return loop(cnt);
 };
 
 (async () => await loop(0))();
