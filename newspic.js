@@ -10,7 +10,7 @@ execSync(`${adb} shell svc wifi disable`);
 
 const sleep = async (duration) => new Promise((r) => setTimeout(r, duration));
 const loop = async (cnt) => {
-  if (cnt > 2) return;
+  if (cnt > 5) return;
   execSync(`${adb} shell svc data disable`);
   execSync(`${adb} shell svc data enable`);
 
