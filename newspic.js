@@ -7,7 +7,6 @@ const adb = 'powershell -c ~\\newspic\\platform-tools\\adb.exe';
 const url = question('url: ');
 
 execSync(`${adb} shell svc wifi disable`);
-execSync(`${adb} shell svc usb setFunctions rndis`);
 
 const sleep = async (duration) => new Promise((r) => setTimeout(r, duration));
 const loop = async (cnt) => {
