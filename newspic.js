@@ -38,7 +38,7 @@ const loop = async (cnt) => {
     await browser.close();
   }
 
-  return loop(cnt);
+  // return loop(cnt);
 };
 
 (async () => await loop(0))();
