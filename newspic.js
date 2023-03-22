@@ -25,7 +25,7 @@ const loop = async (cnt) => {
       .metrics()
       .then((met) => met.Timestamp)
       .then((t) => 15000 - t)
-      .then((t) => (t <= 0 ? 500 : t));
+      // .then((t) => (t <= 0 ? 500 : t));
     console.log(duration);
 
     await page.evaluate(() => window.scrollBy(0, document.body.scrollHeight));
