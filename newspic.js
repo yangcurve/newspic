@@ -15,7 +15,7 @@ const loop = async (cnt) => {
   execSync(`${adb} shell svc data enable`);
 
   const browser = await puppeteer.launch({
-    headless: false,
+    headless: true,
     executablePath: `C:\\Program Files${operatingSystem}\\Google\\Chrome\\Application\\chrome.exe`,
   });
   try {
