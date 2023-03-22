@@ -6,6 +6,7 @@ const operatingSystem = process.argv.at(2) === '32' ? ' (x86)' : '';
 const adb = 'powershell -c ~\\newspic\\platform-tools\\adb.exe';
 const url = question('url: ');
 
+execSync(`${adb} shell svc wifi disable`);
 execSync(`${adb} shell svc usb setFunctions rndis`);
 
 const sleep = async (duration) => new Promise((r) => setTimeout(r, duration));
