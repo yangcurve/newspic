@@ -23,7 +23,7 @@ const loop = async (cnt) => {
 
     const duration = await page
       .metrics()
-      .then((met) => met.Timestamp / 100)
+      .then((met) => met.Timestamp / 1000)
       .then((t) => 15000 - t)
       .then((t) => (t <= 0 ? 500 : t));
     console.log(duration);
